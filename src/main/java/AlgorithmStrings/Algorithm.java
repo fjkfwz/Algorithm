@@ -15,11 +15,15 @@ public class Algorithm {
     public static void main(String[] args) {
         LinklList linklList = new LinklList();
 //        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             linklList.insertTofinal(i);
         }
         System.out.println("LinkedKist Datas:" + linklList.toString());
-            linklList.rotateLinkedList(50);
+        linklList.deteteNodeFromPosition(9);
+        System.out.println("LinkedKist Datas:" + linklList.toString());
+        linklList.deteteNodeFromPosition(0);
+        System.out.println("LinkedKist Datas:" + linklList.toString());
+        linklList.deteteNodeFromPosition(2);
         System.out.println("LinkedKist Datas:" + linklList.toString());
 //        java.lang.String string = scanner.next();
 //        System.out.println("You Input:" + string);

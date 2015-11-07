@@ -13,6 +13,11 @@ public class LinklList<T> {
         head = tail = null;
     }
 
+    /**
+     * Inner Class Node Use To Description Unit Of LinkedList
+     *
+     * @param <T>
+     */
     private static class Node<T> {
         private T data;
         private Node<T> next;
@@ -40,7 +45,11 @@ public class LinklList<T> {
         }
     }
 
-
+    /**
+     * Insert Node To Head;
+     *
+     * @param point
+     */
     public void insertToHead(T point) {
         if (head == null) {
             head = new Node<>(point);
@@ -54,6 +63,11 @@ public class LinklList<T> {
         }
     }
 
+    /**
+     * Insert Node To Tail;
+     *
+     * @param point
+     */
     public void insertTofinal(T point) {
         if (head == null) {
             insertToHead(point);
@@ -65,30 +79,37 @@ public class LinklList<T> {
         }
     }
 
+    /**
+     * Insert Node To Every Position;
+     * Position Scale From 1 To LinkedList Count;
+     *
+     * @param position
+     * @param point
+     */
     public void inserToPosition(int position, T point) {
-        if (position == getLinkedListCount()) {
-            System.out.println(">>>>>>>Insert To Final>>>>>");
-            insertTofinal(point);
-        } else if (position == 0) {
-            System.out.println(">>>>>>>Insert To Head>>>>>");
-            insertToHead(point);
-        } else if (position < getLinkedListCount() && position > -1) {
-            System.out.println(">>>>>Insert To Position>>>>");
-            Node insertNode = new Node(point);
-            Node preNode = head;
-            for (int i = -1; i < position - 1; i++) {
-                preNode = preNode.getNext();
+        position = position - 1;
+        if (position <= getLinkedListCount() && position > -1) {
+            if (position == getLinkedListCount()) {
+                insertTofinal(point);
+            } else if (position == 0) {
+                insertToHead(point);
+            } else {
+                Node insertNode = new Node(point);
+                Node preNode = getNodeByIndex(position);
+                Node next = getNodeByIndex(position + 1);
+                preNode.setNext(insertNode);
+                insertNode.setNext(next);
             }
-            Node next = head;
-            for (int i = -1; i < position; i++) {
-                next = next.getNext();
-            }
-            preNode.setNext(insertNode);
-            insertNode.setNext(next);
+        } else {
+            System.out.println("Insert To Position Error;");
         }
     }
 
-
+    /**
+     * Get Tail Node
+     *
+     * @return
+     */
     public Node getFinalNode() {
         Node cur = head;
         while (cur.getNext() != null) {
@@ -97,6 +118,11 @@ public class LinklList<T> {
         return tail = cur;
     }
 
+    /**
+     * Get LinkedList Count;
+     *
+     * @return
+     */
     public int getLinkedListCount() {
         Node cur = head;
         int i = 0;
@@ -107,7 +133,11 @@ public class LinklList<T> {
         return i + 1;
     }
 
-
+    /**
+     * Override To Output LinkedList Data;
+     *
+     * @return
+     */
     @Override
     public String toString() {
         Node cur = head;
@@ -119,6 +149,11 @@ public class LinklList<T> {
         return string;
     }
 
+    /**
+     * Rotate LinkedList
+     *
+     * @param n
+     */
     public void rotateLinkedList(int n) {
         if (n <= getLinkedListCount() - 1 && n > -1) {
             rotateLinkList(head, n);
@@ -157,4 +192,45 @@ public class LinklList<T> {
         return pre;
     }
 
+    /**
+     * delete Node From Every Position;
+     * Position Scale From 1 To LinkedList Count;
+     * When Position equal 0, Delete Head Node;
+     * When Position equal LinkedList Count, Delete Tail Node;
+     * @param position
+     */
+    public void deteteNodeFromPosition(int position) {
+        position = position - 1;
+        if (position <= getLinkedListCount() && position >= 0) {
+
+            if (position == 0) {
+                Node next = getNodeByIndex(position + 1);
+                head.setNext(null);
+                head = next;
+            } else if (position == getLinkedListCount()) {
+                Node pre = getNodeByIndex(position - 1);
+                pre.setNext(null);
+                tail = pre;
+            } else {
+                Node pre = getNodeByIndex(position - 1);
+                Node next = getNodeByIndex(position + 1);
+                pre.setNext(next);
+            }
+        } else {
+            System.out.println("Delete From Position Error");
+        }
+    }
+
+    /**
+     * Get Node By Position
+     * @param position
+     * @return
+     */
+    public Node getNodeByIndex(int position) {
+        Node node = head;
+        for (int i = 0; i < position; i++) {
+            node = node.getNext();
+        }
+        return node;
+    }
 }
