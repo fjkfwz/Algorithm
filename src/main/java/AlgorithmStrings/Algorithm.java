@@ -247,7 +247,7 @@ public class Algorithm {
         return string;
     }
 
-    
+
 }
 
 
