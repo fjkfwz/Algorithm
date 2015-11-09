@@ -7,7 +7,7 @@ import java.util.List;
  * Created by jz on 2015/11/9.
  */
 
-public class TreeNode {
+public class TreeNode{
     /**
      * This node's parent node.  If this is the root of the tree then
      * the parent will be <code>null</code>.
@@ -406,6 +406,33 @@ public class TreeNode {
         }
         System.out.println(branch.size());
         return branch;
+    }
+
+    public int minDepth(){
+        List<TreeNode> branch = new ArrayList<>();
+        List<TreeNode> childbranch = new ArrayList<>();
+        TreeNode node = this;
+        branch.add(node);
+        int count = 1;
+        while (branch.size() > 0) {
+            for (int i = 0; i < branch.size(); i++) {
+                node = branch.get(i);
+                if (node.hasChildren()) {
+                    for (int j = 0; j < node.getChildren().length; j++) {
+                        childbranch.add(node.getChildren()[j]);
+                    }
+                }else{
+                    return count;
+                }
+            }
+            count++;
+            branch.clear();
+            for (TreeNode treeNode : childbranch) {
+                branch.add(treeNode);
+            }
+            childbranch.clear();
+        }
+        return count;
     }
 }
 
