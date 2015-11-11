@@ -1,6 +1,7 @@
 package Tree;
 
 import Tree.BinaryTree.BinaryTree;
+import Tree.BinaryTree.InOrderIterator;
 
 /**
  * Created by jz on 2015/11/9.
@@ -24,7 +25,13 @@ public class Tree {
 //        root.setRight(treeNod1);
 //        List<Integer> list = new ArrayList<>();
 //        System.out.println(binaryTree.preorderTraversal(binaryTree.getRoot(), list).toString());
-        System.out.println(binaryTree.maxDepth(binaryTree.getRoot(), 0));
+        String string = "";
+        InOrderIterator inOrderIterator = new InOrderIterator(binaryTree.getRoot());
+        while (inOrderIterator.hasNext()){
+            string += inOrderIterator.next().getVal();
+        }
+        System.out.println(string);
+//        System.out.println(binaryTree.maxDepth(binaryTree.getRoot(), 0));
 //        System.out.println(binaryTree.postorderTraversal(binaryTree.getRoot(), list).toString());
     }
 

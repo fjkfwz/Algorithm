@@ -6,6 +6,7 @@ package Tree.BinaryTree.SegmentTree;
  */
 public class SegmentTree {
     private TreeNode root;
+
     public TreeNode build(int[] data) {
         int start = 0;
         int end = data.length - 1;
@@ -22,7 +23,6 @@ public class SegmentTree {
         }
         return max;
     }
-
 
 
     private void buildTree(TreeNode node, int[] data) {
@@ -50,7 +50,7 @@ public class SegmentTree {
             return string;
         }
         string = preOrderPrint(node.getLeft(), string);
-        string += "[" + node.getStart() + "," + node.getEnd() + "] ";
+        string += "[" + node.getStart() + "," + node.getEnd() + "," + node.getMax() + "] ";
         string = preOrderPrint(node.getRight(), string);
         return string;
     }
@@ -71,5 +71,17 @@ public class SegmentTree {
         return max;
     }
 
-    
+    public void modify(TreeNode node, int index, int val) {
+        if (node.getEnd() <= index) {
+            node.setMax(val);
+        }
+        if (node.getStart() == node.getEnd()) {
+            return;
+        }
+        if (index >= ((node.getEnd() + node.getStart()) / 2 + 1)){
+            modify(node.getRight(), index, val);
+        } else {
+            modify(node.getLeft(), index, val);
+        }
+    }
 }
