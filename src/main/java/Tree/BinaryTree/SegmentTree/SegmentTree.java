@@ -37,7 +37,7 @@ public class SegmentTree {
         TreeNode left = new TreeNode(start, end, getMax(data, start, end));
         node.setLeft(left);
         buildTree(left, data);
-        start = (node.getStart() + node.getEnd()) / 2 + 1;
+        start = end + 1;
         end = node.getEnd();
         TreeNode right = new TreeNode(start, end, getMax(data, start, end));
         node.setRight(right);

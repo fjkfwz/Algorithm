@@ -5,11 +5,13 @@ package Tree.BinaryTree.SegmentTree;
  */
 public class TreeTest {
     public static void main(String args[]) {
-        SegmentTree segmentTree = new SegmentTree();
-        int[] data = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        TreeNode root = segmentTree.build(data);
-        System.out.println(segmentTree.preOrderPrint(root, ""));
-        segmentTree.modify(root, 10, 8);
-        System.out.println(segmentTree.preOrderPrint(root, ""));
+//
+//        int[] data = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//        List<Interval> intervalList = new ArrayList<>();
+//        intervalList.add(new Interval(1, 2));
+//        intervalList.add(new Interval(0, 4));
+//        intervalList.add(new Interval(2, 4));
+//        System.out.println();
+//        int[] data = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     }
 }
