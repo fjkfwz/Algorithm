@@ -19,12 +19,12 @@ public class SegmentTreeMin {
     }
 
     public class SegmentTreeNode {
-        int start, end, min;
+        int start, end, val;
         SegmentTreeNode left, right;
 
-        public SegmentTreeNode(int start, int end, int min) {
+        public SegmentTreeNode(int start, int end, int val) {
             this.start = start;
-            this.min = min;
+            this.val = val;
             this.end = end;
             this.left = this.right = null;
         }
@@ -46,15 +46,12 @@ public class SegmentTreeMin {
         SegmentTreeNode root = new SegmentTreeNode(start, end, Integer.MAX_VALUE);
         if (start != end) {
             int mid = (start + end) / 2;
-            System.out.println("MID:" + mid);
             root.left = build(start, mid, array);
-            System.out.println("LEFT:" + root.left.min);
             root.right = build(mid + 1, end, array);
-            System.out.println("RIGHT" + root.right.min);
-            root.min = Math.min(root.left.min, root.right.min);
-            System.out.println(root.min);
+            root.val = root.left.val + root.right.val;
+            System.out.println(root.val);
         } else {
-            root.min = array[start];
+            root.val = array[start];
         }
         return root;
     }
@@ -64,7 +61,7 @@ public class SegmentTreeMin {
             return Integer.MAX_VALUE;
         }
         if (node.start == start && node.end == end) {
-            return node.min;
+            return node.val;
         }
         int mid = (node.start + node.end) / 2;
         int leftmin = Integer.MAX_VALUE, rightmin = Integer.MAX_VALUE;
@@ -84,6 +81,25 @@ public class SegmentTreeMin {
         return Math.min(leftmin, rightmin);
     }
 
+    public int modify(SegmentTreeNode root, int index, int val) {
+        if (root == null){
+            return Integer.MIN_VALUE;
+        }
+        int leftval, rightval;
+        if (root.left == null && root.right == null) {
+            root.val = val;
+            return root.val;
+        }
+        int mid = (root.start + root.end) / 2;
+        if (index <= mid) {
+            leftval = modify(root.left, index, val);
+            root.val = leftval + root.right.val;
+        }else {
+            rightval = modify(root.right,index,val);
+            root.val = rightval + root.left.val;
+        }
+        return root.val;
+    }
 
     public List<Integer> queryIntervalMin(int[] array, List<Interval> intervalList) {
         List<Integer> resList = new ArrayList<Integer>();
@@ -100,10 +116,9 @@ public class SegmentTreeMin {
             return list;
         }
         list = inorderTraversal(node.left, list);
-        list.add(node.min);
+        list.add(node.val);
         list = inorderTraversal(node.right, list);
         return list;
     }
-
 }
 
